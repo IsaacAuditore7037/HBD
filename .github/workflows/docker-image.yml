@@ -26,17 +26,6 @@ jobs:
         format: "${major}.${minor}.${patch}-prerelease${increment}"
       id: version
 
-    - name: Docker login
-      env:
-        DOCKER_USER: ${{ secrets.DOCKER_USER }}
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-     #   NEW_VERSION: ${{ steps.version.outputs.version }}
-        
-      run: |
-        echo "Iniciando login docker"
-        docker login registry.digitalocean.com -u garcia_7037@hotmail.com -p $DOCKER_PASSWORD
-        echo "Fin del login docker"
-
     - name: Build Docker Image
       env: 
         NEW_VERSION: ${{ steps.version.outputs.version }}
@@ -46,14 +35,25 @@ jobs:
         docker build -t isaacauditore/hbd:latest .
         echo "Finaliza construccion imagen"
 
+    - name: Docker login
+      env:
+        DOCKER_USER: ${{ secrets.DOCKER_USER }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        
+      run: |
+        echo "Iniciando login docker"
+        docker login registry.digitalocean.com -u garcia_7037@hotmail.com -p $DOCKER_PASSWORD
+        echo "Fin del login docker"    
+
     - name: Push Docker Image
       env: 
         NEW_VERSION: ${{ steps.version.outputs.version }}
       run: |
         echo "Subir Imagen a DockerHub"
+        doctl registry login -u garcia_7037@hotmail.com -p $DOCKER_PASSWORD
         docker tag hbd registry.digitalocean.com/isaacauditore-registry/hbd
         docker push registry.digitalocean.com/isaacauditore-registry/hbd:$NEW_VERSION
-  #      docker push registry.digitalocean.com/isaacauditore-registry/hbd:latest
+        docker push registry.digitalocean.com/isaacauditore-registry/hbd:latest
          
     
 #    - name: Build the Docker image
