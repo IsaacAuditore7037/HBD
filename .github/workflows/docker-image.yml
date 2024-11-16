@@ -53,7 +53,7 @@ jobs:
         echo "Subir Imagen a DockerHub"
         docker tag hbd registry.digitalocean.com/isaacauditore-registry/hbd
         docker push registry.digitalocean.com/isaacauditore-registry/hbd:$NEW_VERSION
-        docker push registry.digitalocean.com/isaacauditore-registry/hbd:latest
+  #      docker push registry.digitalocean.com/isaacauditore-registry/hbd:latest
          
     
 #    - name: Build the Docker image
