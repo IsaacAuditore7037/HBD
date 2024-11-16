@@ -13,6 +13,47 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Git Semantic Version
+      uses: PaulHatch/semantic-version@v4.0.3
+      with:
+        major_pattern: "major:"
+        minor_pattern: "feat:"
+        format: "${major}.${minor}.${patch}-prerelease${increment}"
+      id: version
+
+    - name: Docker login
+      env:
+        DOCKER_USER: ${{ secrets.DOCKER_USER }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+     #   NEW_VERSION: ${{ steps.version.outputs.version }}
+        
+      run: |
+        echo "Iniciando login docker"
+        docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+        echo "Fin del login docker"
+
+    - name: Build Docker Image
+      env: 
+        NEW_VERSION: ${{ steps.version.outputs.version }}
+      run: |
+        echo "Construir Imagen"
+        docker build -t isaacauditore/HBD:$NEW_VERSION .
+        docker build -t isaacauditore/HBD:latest .
+        echo "Finaliza construccion imagen"
+
+    - name: Push Docker Image
+      env: 
+        NEW_VERSION: ${{ steps.version.outputs.version }}
+      run: |
+        echo "Subir Imagen a DockerHub"
+        docker push isaacauditore/HBD:$NEW_VERSION
+        docker push isaacauditore/HBD:latest
+         
+    
+#    - name: Build the Docker image
+#      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
