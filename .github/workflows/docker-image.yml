@@ -50,7 +50,7 @@ jobs:
         NEW_VERSION: ${{ steps.version.outputs.version }}
       run: |
         echo "Subir Imagen a DockerHub"
-        doctl registry login -u garcia_7037@hotmail.com -p $DOCKER_PASSWORD
+        docker registry login -u garcia_7037@hotmail.com -p $DOCKER_PASSWORD
         docker tag hbd registry.digitalocean.com/isaacauditore-registry/hbd
         docker push registry.digitalocean.com/isaacauditore-registry/hbd:$NEW_VERSION
         docker push registry.digitalocean.com/isaacauditore-registry/hbd:latest
