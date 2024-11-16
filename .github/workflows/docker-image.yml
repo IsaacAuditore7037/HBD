@@ -50,6 +50,6 @@ jobs:
         NEW_VERSION: ${{ steps.version.outputs.version }}
       run: |
         echo "Subir Imagen a DockerHub"
-        docker tag registry.digitalocean.com/isaacauditore-registry/hbd
-        docker push registry.digitalocean.com/isaacauditore-registry/hbd:latest
+        docker tag hbd registry.digitalocean.com/isaacauditore-registry/hbd
+#        docker push registry.digitalocean.com/isaacauditore-registry/hbd:latest
          
