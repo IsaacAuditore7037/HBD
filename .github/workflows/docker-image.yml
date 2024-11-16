@@ -38,15 +38,21 @@ jobs:
         echo "Fin del login docker"
 
     - name: Build Docker Image
+      env: 
+        NEW_VERSION: ${{ steps.version.outputs.version }}
       run: |
         echo "Construir Imagen"
-        docker build -t isaacauditore/HBD:latest .
+        docker build -t isaacauditore/hbd:$NEW_VERSION .
+        docker build -t isaacauditore/hbd:latest .
         echo "Finaliza construccion imagen"
 
     - name: Push Docker Image
+      env: 
+        NEW_VERSION: ${{ steps.version.outputs.version }}
       run: |
         echo "Subir Imagen a DockerHub"
-        docker push isaacauditore/HBD:latest
+        docker push isaacauditore/hbd:$NEW_VERSION
+        docker push isaacauditore/hbd:latest
          
     
 #    - name: Build the Docker image
