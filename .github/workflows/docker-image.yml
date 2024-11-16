@@ -34,7 +34,7 @@ jobs:
         
       run: |
         echo "Iniciando login docker"
-        docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+        docker login registry.digitalocean.com -u garcia_7037@hotmail.com -p $DOCKER_PASSWORD
         echo "Fin del login docker"
 
     - name: Build Docker Image
