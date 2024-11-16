@@ -51,8 +51,8 @@ jobs:
         NEW_VERSION: ${{ steps.version.outputs.version }}
       run: |
         echo "Subir Imagen a DockerHub"
-        docker push isaacauditore/hbd:$NEW_VERSION
-        docker push isaacauditore/hbd:latest
+        docker push registry.digitalocean.com/isaacauditore-registry/hbd:$NEW_VERSION
+        docker push registry.digitalocean.com/isaacauditore-registry/hbd:latest
          
     
 #    - name: Build the Docker image
