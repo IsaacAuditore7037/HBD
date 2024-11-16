@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-letter',
@@ -6,5 +7,17 @@ import { Component } from '@angular/core';
   styleUrl: './letter.component.css'
 })
 export class LetterComponent {
+  constructor(
+    public _Router: Router,
+  ) {}
 
+
+  ngOnInit(): void {
+
+  }
+
+  gift(){
+    let path = `/letter/gift`;
+    this._Router.navigate([path]);
+  }
 }
