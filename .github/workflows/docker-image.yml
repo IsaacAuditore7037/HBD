@@ -31,8 +31,8 @@ jobs:
         NEW_VERSION: ${{ steps.version.outputs.version }}
       run: |
         echo "Construir Imagen"
-        docker build -t isaacauditore/hbd:$NEW_VERSION .
-        docker build -t isaacauditore/hbd:latest .
+        docker build -t hbd:$NEW_VERSION .
+        docker build -t hbd:latest .
         echo "Finaliza construccion imagen"
 
     - name: Digital Ocean Registry login
@@ -50,7 +50,8 @@ jobs:
         NEW_VERSION: ${{ steps.version.outputs.version }}
       run: |
         echo "Subir Imagen a DigitalOcean Registry"
-        docker tag isaacauditore/hbd registry.digitalocean.com/isaacauditore-registry/isaacauditore/hbd
-        docker push registry.digitalocean.com/isaacauditore-registry/isaacauditore/hbd:$NEW_VERSION
-        docker push registry.digitalocean.com/isaacauditore-registry/isaacauditore/hbd:latest
+        docker tag hbd registry.digitalocean.com/isaacauditore-registry/hbd
+        docker tag hbd registry.digitalocean.com/isaacauditore-registry/hbd
+        docker push registry.digitalocean.com/isaacauditore-registry/hbd:$NEW_VERSION
+        docker push registry.digitalocean.com/isaacauditore-registry/hbd:latest
         echo "Imagen Subida"
