@@ -35,7 +35,7 @@ jobs:
         docker build -t isaacauditore/hbd:latest .
         echo "Finaliza construccion imagen"
 
-    - name: Docker login
+    - name: Digital Ocean Registry login
       env:
         DOCKER_USER: ${{ secrets.DOCKER_USER }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
@@ -45,13 +45,12 @@ jobs:
         docker login registry.digitalocean.com -u garcia_7037@hotmail.com -p $DOCKER_PASSWORD
         echo "Fin del login docker"    
 
-    - name: Push Docker Image
+    - name: Push Digital Ocean Registry Image
       env: 
         NEW_VERSION: ${{ steps.version.outputs.version }}
       run: |
-        echo "Subir Imagen a DockerHub"
-        docker tag isaacauditore/hbd:latest registry.digitalocean.com/isaacauditore-registry/isaacauditore/hbd:latest
-        docker tag isaacauditore/hbd:$NEW_VERSION registry.digitalocean.com/isaacauditore-registry/isaacauditore/hbd:$NEW_VERSION
+        echo "Subir Imagen a DigitalOcean Registry"
+        docker tag isaacauditore/hbd registry.digitalocean.com/isaacauditore-registry/isaacauditore/hbd
         docker push registry.digitalocean.com/isaacauditore-registry/isaacauditore/hbd:$NEW_VERSION
         docker push registry.digitalocean.com/isaacauditore-registry/isaacauditore/hbd:latest
         echo "Imagen Subida"
