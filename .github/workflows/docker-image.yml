@@ -1,3 +1,4 @@
+
 name: Docker Image CI
 
 on:
@@ -34,24 +35,22 @@ jobs:
         docker build -t hbd:$NEW_VERSION .
         docker build -t hbd:latest .
         echo "Finaliza construccion imagen"
-
     - name: Digital Ocean Registry login
       env:
         DOCKER_USER: ${{ secrets.DOCKER_USER }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         
       run: |
-        echo "Iniciando login docker"
+        echo "Iniciando login registry digital ocean"
         docker login registry.digitalocean.com -u garcia_7037@hotmail.com -p $DOCKER_PASSWORD
-        echo "Fin del login docker"    
-
-    - name: Push Digital Ocean Registry Image
+        echo "Fin del login registry digital ocean"    
+    - name: Push Docker Image
       env: 
         NEW_VERSION: ${{ steps.version.outputs.version }}
       run: |
         echo "Subir Imagen a DigitalOcean Registry"
-        docker tag hbd registry.digitalocean.com/isaacauditore-registry/hbd
-        docker tag hbd registry.digitalocean.com/isaacauditore-registry/hbd
+        docker tag hbd:latest registry.digitalocean.com/isaacauditore-registry/hbd:latest
+        docker tag hbd:$NEW_VERSION registry.digitalocean.com/isaacauditore-registry/hbd:$NEW_VERSION
         docker push registry.digitalocean.com/isaacauditore-registry/hbd:$NEW_VERSION
         docker push registry.digitalocean.com/isaacauditore-registry/hbd:latest
         echo "Imagen Subida"
