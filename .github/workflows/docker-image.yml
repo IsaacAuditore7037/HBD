@@ -38,12 +38,12 @@ jobs:
 
     # - name: Digital Ocean Registry login
     #   env:
-    #     DOCKER_USER: ${{ secrets.DOCKER_USER }}
-    #     DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+    #     DIGITALOCEANREGISTRY_USER: ${{ secrets.DIGITALOCEANREGISTRY_USER }}
+    #     DIGITALOCEANREGISTRY_PASSWORD: ${{ secrets.DIGITALOCEANREGISTRY_PASSWORD }}
         
     #   run: |
     #     echo "Iniciando login registry digital ocean"
-    #     docker login registry.digitalocean.com -u garcia_7037@hotmail.com -p $DOCKER_PASSWORD
+    #     docker login registry.digitalocean.com -u $DIGITALOCEANREGISTRY_USER -p $DIGITALOCEANREGISTRY_PASSWORD
     #     echo "Fin del login registry digital ocean"  
 
     # - name: Push Docker Image
