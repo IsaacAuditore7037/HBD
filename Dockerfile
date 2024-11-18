@@ -22,5 +22,5 @@ COPY --from=builder /usr/src/app/dist/hbd/browser /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # PUBLICACION DE PUERTOS
-EXPOSE 80 443
+EXPOSE 8080 443
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
