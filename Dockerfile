@@ -1,32 +1,24 @@
-ARG  NODE_VERSION=latest
-ARG  NGINX_VERSION=latest
-
-FROM node:${NODE_VERSION} AS builder
-RUN echo "VERSION NODE: $NODE_VERSION"
-
-# CREACION DE CARPETAS ------------------
-RUN mkdir -p /usr/src/app
+# Stage 1: Build
+FROM node:16-alpine AS build
+# Directorio donde se mantendran los archivos de la app
 WORKDIR /usr/src/app
-COPY . /usr/src/app
+# Copiar el package.json y el package-lock en nuestro WORKDIR
+COPY package*.json ./
+# Instalar dependencias
+RUN npm install
+# Copiar todos los archivos
+COPY . .
+# Construir la aplicacion lista para produccion, puede no incluir el # flag --prod
+RUN npm run build --prod
 
-# INSTALACION DE PAQUETES ------------------
-RUN npm install --force
-RUN npm install -g ts-node
-# RUN npm run overwrite-environments
+# Stage 2
+FROM nginx:1.17.1-alpine
 
-# CONSTRUCCION ANGULAR ------------------
-# ARG BUILD_ENV
-# RUN echo "AMBIENTE DE CONSTRUCCION: $BUILD_ENV"
-RUN npm run "build"
+# Copiar desde la "Etapa" build el contenido de la carpeta build/
+# dentro del directorio indicado en nginx
+COPY --from=build /usr/src/app/dist/ang-dockerized-app /usr/share/nginx/html
+# Copiar desde la "Etapa" build el contenido de la carpeta la
+# configuracion de nginx dentro del directorio indicado en nginx
+COPY --from=build /usr/src/app/nginx.conf /etc/nginx/conf.d/default.conf
 
-# COPIAR DIST AL NGINX ------------------
-FROM nginx:${NGINX_VERSION}
-RUN echo "VERSION NGINX: $NGINX_VERSION"
-
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-WORKDIR /usr/share/nginx/html/
-COPY --from=builder /usr/src/app/dist/hbd/ /usr/share/nginx/html
-
-# PUBLICACION DE PUERTOS ------------------
-EXPOSE 80 443
-CMD nginx -g 'daemon off;'
+EXPOSE 80
