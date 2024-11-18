@@ -7,7 +7,23 @@
   /* bottom: 60px; */
   /* right: 80px; */
   z-index: 1000; /* Asegura que esté por encima de otros elementos */
+}
 
+.floating-leyend {
+  position: fixed;
+  top: 10%;
+  left: 30%;
+  /* bottom: 60px; */
+  /* right: 80px; */
+  z-index: 1000; /* Asegura que esté por encima de otros elementos */
+}
+
+.texto {
+  color: red;
+  font-style: italic;
+  font-family: 'Times New Roman', Times;
+  width: fit-content;
+  height: fit-content;
 }
 
 .btn{
@@ -17,4 +33,12 @@
   width:80px;
   background-size: 50px 50px;
   background-position:center;
+}
+
+.birthday-text {
+  font-size: 3em;
+  font-weight: bold;
+  color: red;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  margin-top: 30px;
 }

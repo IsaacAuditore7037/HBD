@@ -6,7 +6,7 @@ export class AppRoutingAdmin {
     path: 'letter',
     component: LetterComponent,
     children: [
-      { path: 'gift', component: GiftComponent },
+      { path: 'test', component: GiftComponent },
     ]
   };
 }

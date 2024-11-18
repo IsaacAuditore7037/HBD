@@ -1,20 +1,48 @@
-.floating-button-container {
-  position: fixed;
-  height:100px;
-  width:100px;
-  top: 80%;
-  left: 47%;
-  /* bottom: 60px; */
-  /* right: 80px; */
-  z-index: 1000; /* Asegura que esté por encima de otros elementos */
+.background-screen{
 
+  /* width: max-content;
+  height: max-content; */
+  background-image: url(./../../../assets/img/roses.jpg);
 }
 
-.btn{
-  background-image:url('../../../assets/img/heart.png');
-  background-repeat:no-repeat;
-  height:80px;
-  width:80px;
-  background-size: 50px 50px;
-  background-position:center;
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f8f1e4;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 20px;
+  /* background-color: #fff; */
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background-image: url(./../../../assets/img/background.jpg);
+}
+
+h1 {
+  text-align: center;
+  color: black;
+  font-size: 36px;
+}
+
+p {
+  font-size: 18px;
+  line-height: 1.6;
+  color: black;
+}
+
+.signature {
+  text-align: right;
+  font-size: 20px;
+  color: #333;
+  margin-top: 40px;
+}
+
+.heart {
+  text-align: center;
+  font-size: 50px;
+  color: #e74c3c;
 }
