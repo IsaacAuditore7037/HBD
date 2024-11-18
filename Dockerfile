@@ -1,24 +1,26 @@
-# Stage 1: Build
-FROM node:16-alpine AS build
-# Directorio donde se mantendran los archivos de la app
+#### VARIABLES DE DESPLIEGUE ####
+ARG  NODE_VERSION=latest
+ARG  NGINX_VERSION=latest
+FROM node:${NODE_VERSION} AS builder
+RUN echo "VERSION NODE: $NODE_VERSION"
+
+# CREACION DE CARPETA
+RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
-# Copiar el package.json y el package-lock en nuestro WORKDIR
-COPY package*.json ./
-# Instalar dependencias
-RUN npm install
-# Copiar todos los archivos
-COPY . .
-# Construir la aplicacion lista para produccion, puede no incluir el # flag --prod
-RUN npm run build --prod
+COPY . /usr/src/app
 
-# Stage 2
-FROM nginx:1.17.1-alpine
+# INSTALACION DE PAQUETES PACKAGE.JSON
+RUN npm install --force
+RUN npm install -g ts-node
 
-# Copiar desde la "Etapa" build el contenido de la carpeta build/
-# dentro del directorio indicado en nginx
-COPY --from=build /usr/src/app/dist/ang-dockerized-app /usr/share/nginx/html
-# Copiar desde la "Etapa" build el contenido de la carpeta la
-# configuracion de nginx dentro del directorio indicado en nginx
-COPY --from=build /usr/src/app/nginx.conf /etc/nginx/conf.d/default.conf
+# CREA CARPETA DIST DE ANGULAR SEGUN EL AMBIENTE
+RUN npm run build
 
-EXPOSE 80
+# COPIA CARPETA DIST AL NGINX DEL SERVIDOR
+FROM nginx:${NGINX_VERSION}
+COPY --from=builder /usr/src/app/dist/hbd/browser /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# PUBLICACION DE PUERTOS
+EXPOSE 80 443
+ENTRYPOINT ["nginx", "-g", "daemon off;"]

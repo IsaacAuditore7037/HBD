@@ -18,7 +18,7 @@ RUN npm run build
 
 # COPIA CARPETA DIST AL NGINX DEL SERVIDOR
 FROM nginx:${NGINX_VERSION}
-COPY --from=builder /usr/src/app/dist/hbd /usr/share/nginx/html
+COPY --from=builder /usr/src/app/dist/hbd/browser /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # PUBLICACION DE PUERTOS
