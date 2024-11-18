@@ -32,8 +32,8 @@ jobs:
     #     NEW_VERSION: ${{ steps.version.outputs.version }}
     #   run: |
     #     echo "Construir Imagen"
-    #     docker build -t hbd:$NEW_VERSION .
-    #     docker build -t hbd:latest .
+    #     docker build -t isaacauditore/hbd:$NEW_VERSION .
+    #     docker build -t isaacauditore/hbd:latest .
     #     echo "Finaliza construccion imagen"
 
     # - name: Digital Ocean Registry login
