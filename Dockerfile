@@ -25,7 +25,7 @@ RUN echo "VERSION NGINX: $NGINX_VERSION"
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 WORKDIR /usr/share/nginx/html/
-COPY --from=builder /usr/src/app/dist/angular-sockets/ /usr/share/nginx/html
+COPY --from=builder /usr/src/app/dist/hbd/ /usr/share/nginx/html
 
 # PUBLICACION DE PUERTOS ------------------
 EXPOSE 80 443
