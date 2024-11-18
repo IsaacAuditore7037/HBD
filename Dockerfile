@@ -12,12 +12,12 @@ COPY . /usr/src/app
 # INSTALACION DE PAQUETES ------------------
 RUN npm install --force
 RUN npm install -g ts-node
-RUN npm run overwrite-environments
+# RUN npm run overwrite-environments
 
 # CONSTRUCCION ANGULAR ------------------
 # ARG BUILD_ENV
 # RUN echo "AMBIENTE DE CONSTRUCCION: $BUILD_ENV"
-RUN npm run "build-dev"
+RUN npm run "build"
 
 # COPIAR DIST AL NGINX ------------------
 FROM nginx:${NGINX_VERSION}
