@@ -25,7 +25,7 @@ export class CarruselComponent implements OnInit{
     //   numeros.push(numero);
     // }
 
-    for(let i = 1; i < 21; i++){
+    for(let i = 1; i < 29; i++){
       // let numero: number = 0;
       // numero = Math.floor(Math.random() * (20 - 1) + 0);
       // numeros.push(numero);

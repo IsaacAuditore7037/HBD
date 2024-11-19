@@ -1,9 +1,15 @@
+.collage {
+  background-image: url(../../../assets/img/background.jpg);
+  max-width: 48;
+}
+
+
 .floating-button-container {
   position: fixed;
   height:100px;
   width:100px;
   top: 80%;
-  left: 47%;
+  left: 42%;
   /* bottom: 60px; */
   /* right: 80px; */
   z-index: 1000; /* Asegura que esté por encima de otros elementos */
@@ -11,8 +17,8 @@
 
 .floating-leyend {
   position: fixed;
-  top: 10%;
-  left: 30%;
+  top: 20%;
+  left: 2%;
   /* bottom: 60px; */
   /* right: 80px; */
   z-index: 1000; /* Asegura que esté por encima de otros elementos */
