@@ -1,26 +1,29 @@
-#### VARIABLES DE DESPLIEGUE ####
-ARG  NODE_VERSION=latest
-ARG  NGINX_VERSION=latest
-FROM node:${NODE_VERSION} AS builder
-RUN echo "VERSION NODE: $NODE_VERSION"
+# Etapa 1: Build de Angular
+FROM node:20-alpine AS build
 
-# CREACION DE CARPETA
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
-COPY . /usr/src/app
+WORKDIR /app
 
-# INSTALACION DE PAQUETES PACKAGE.JSON
-RUN npm install --force
-RUN npm install -g ts-node
+# Copiar dependencias
+COPY package*.json ./
+RUN npm install
 
-# CREA CARPETA DIST DE ANGULAR SEGUN EL AMBIENTE
+# Copiar código fuente
+COPY . .
+
+# Hacer build de producción
 RUN npm run build
 
-# COPIA CARPETA DIST AL NGINX DEL SERVIDOR
-FROM nginx:${NGINX_VERSION}
-COPY --from=builder /usr/src/app/dist/hbd/browser /usr/share/nginx/html
+# Etapa 2: Servir con Nginx
+FROM nginx:alpine
+
+# Copiar build de Angular al directorio de Nginx
+COPY --from=build /app/dist/hbd /usr/share/nginx/html
+
+# Copiar configuración de Nginx personalizada
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# PUBLICACION DE PUERTOS
-EXPOSE 8080 443
-ENTRYPOINT ["nginx", "-g", "daemon off;"]
+# Exponer puerto 80
+EXPOSE 80
+
+# Comando por defecto
+CMD ["nginx", "-g", "daemon off;"]
