@@ -1,22 +1,72 @@
+<div class="collage">
 
-<!-- <div class="collage" style="background-image: url(./assets/img/background.jpg) w-16"> -->
-  <div class="collage">
-  <!-- FELIZ CUMPLEAÑOS -->
-  <div class="floating-leyend d-flex flex-column width=device-width">
-    <h1 class="birthday-text">!!!FELIZ CUMPLEAÑOS!!!</h1>
-    <h1 class="birthday-text">     !MI PRINCESA!    </h1>
+  <!-- MÚSICA AUTOMÁTICA -->
+  <!-- <audio #bgMusic loop>
+    <source src="assets/multimedia/tuCancion.mp3" type="audio/mp3" />
+  </audio> -->
+
+
+  <!-- MÚSICA AUTOMÁTICA -->
+  <audio id="bg-music" loop>
+    <source src="assets/multimedia/santa.mp3" type="audio/mp3">
+  </audio>
+
+  <!-- CORAZONES FLOTANDO -->
+  <div class="hearts-container">
+  <div
+    class="heart"
+    *ngFor="let heart of hearts"
+    [style.left.%]="heart.left"
+    [style.width.px]="heart.size"
+    [style.height.px]="heart.size"
+    [style.background]="heart.color"
+    [style.animationDuration.s]="heart.duration"
+    [style.transform]="'rotate(' + heart.rotate + 'deg)'"
+  ></div>
+</div>
+
+  <!-- TEXTO EN MEDIO -->
+  <div class="floating-leyend">
+    <h1 class="birthday-text">¡¡¡ FELIZ CUMPLEAÑOS !!!</h1>
+    <h1 class="birthday-text">¡MI PRINCESA!</h1>
+
+    <!-- ❤️ BOTÓN LETTER ABAJO DEL TEXTO -->
+    <button class="letter-btn" (click)="letter()">❤️</button>
   </div>
 
-  <!-- BOTON DE NAVEGACIÓN A OTRA VENTANA -->
-  <div class="floating-button-container d-flex flex-column">
-    <button mat-fab (click)="letter()" class="btn"></button>
-  </div>
+  <!-- COLLAGE -->
+  <div class="collage-grid">
+     <!-- <div *ngFor="let image of images" class="image-container"
+       (mouseenter)="showPreview(image)"
+       (mouseleave)="hidePreview()">
+    <img [src]="image" alt="" class="thumbnail">
+  </div> -->
 
-  <!-- IMAGENES -->
-  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-    <div *ngFor="let image of images">
-      <img class="h-auto max-w-full rounded-lg" src="{{image}}"
-      alt="" style="width: 300px; height: 300px;">
+    <div *ngFor="let image of images" class="image-wrapper fade-in"
+      (mouseenter)="showPreview(image)"
+      (mouseleave)="hidePreview()">
+      <img [src]="image" alt="Foto" />
     </div>
   </div>
+
+</div>
+
+<audio #bgMusic loop>
+  <source src="../../../assets/multimedia/santa.mp3" type="audio/mp3" />
+</audio>
+
+<!-- Overlay invisible para permitir clic y autoplay -->
+<div class="music-overlay" (click)="playMusic()" *ngIf="!musicStarted"></div>
+
+<!-- <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+  <div *ngFor="let image of images" class="image-container"
+       (mouseenter)="showPreview(image)"
+       (mouseleave)="hidePreview()">
+    <img [src]="image" alt="" class="thumbnail">
+  </div>
+</div> -->
+
+<!-- Ventana flotante -->
+<div class="preview-container" *ngIf="previewImage">
+  <img [src]="previewImage" class="preview-image" />
 </div>

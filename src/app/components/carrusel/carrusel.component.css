@@ -1,50 +1,213 @@
+/* CONTENEDOR GENERAL */
 .collage {
-  background-image: url(../../../assets/img/background.jpg);
-  max-width: 48;
+  position: relative;
+  padding: 25px;
+  background: #fff0fa;
+  border-radius: 20px;
+  overflow: hidden;
 }
 
-
-.floating-button-container {
-  position: fixed;
-  height:100px;
-  width:100px;
-  top: 80%;
-  left: 42%;
-  /* bottom: 60px; */
-  /* right: 80px; */
-  z-index: 1000; /* Asegura que esté por encima de otros elementos */
+/* COLLAGE GRID */
+.collage-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* antes 180px */
+  gap: 20px;
 }
 
+/* CONTENEDOR DE CADA IMAGEN */
+.image-wrapper {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 7px 20px rgba(255,0,120,0.25);
+}
+
+/* IMAGENES */
+.image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.9) saturate(1.2) sepia(0.1) hue-rotate(-10deg);
+  transition: 0.4s ease;
+}
+
+/* BRILLO AL HACER HOVER */
+.image-wrapper:hover img {
+  transform: scale(1.08);
+  filter: brightness(1.2) saturate(1.4);
+  box-shadow: 0 0 15px #ff78c8;
+}
+
+/* ANIMACIÓN DE ENTRADA */
+.fade-in {
+  animation: fadeZoom 1s ease forwards;
+  opacity: 0;
+}
+
+@keyframes fadeZoom {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* EL TEXTO SIGUE CENTRADO */
 .floating-leyend {
-  position: fixed;
-  top: 20%;
-  left: 2%;
-  /* bottom: 60px; */
-  /* right: 80px; */
-  z-index: 1000; /* Asegura que esté por encima de otros elementos */
-}
-
-.texto {
-  color: red;
-  font-style: italic;
-  font-family: 'Times New Roman', Times;
-  width: fit-content;
-  height: fit-content;
-}
-
-.btn{
-  background-image:url('../../../assets/img/heart.png');
-  background-repeat:no-repeat;
-  height:80px;
-  width:80px;
-  background-size: 50px 50px;
-  background-position:center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  text-align: center;
+  pointer-events: none;
 }
 
 .birthday-text {
-  font-size: 3em;
+  font-size: 3rem;
+  color: #ff58b7;
   font-weight: bold;
-  color: red;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-  margin-top: 30px;
+  text-shadow: 0px 0px 14px #ffffff;
+  background: rgba(255, 180, 220, 0.35);
+  padding: 10px 20px;
+  margin: 5px 0;
+  border-radius: 15px;
+  backdrop-filter: blur(4px);
 }
+
+/* ❤️ BOTÓN DE LETTER (DEBAJO DEL TEXTO) */
+.letter-btn {
+  margin-top: 25px;          /* lo baja debajo de MI PRINCESA */
+  font-size: 2rem;
+  background: #ff5dbb;
+  color: white;
+  border: none;
+  padding: 15px 18px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(255,80,160,0.4);
+  transition: 0.25s;
+  pointer-events: auto;      /* permite hacer clic */
+}
+
+.letter-btn:hover {
+  transform: scale(1.15);
+  background: #ff7fcc;
+}
+
+/* CORAZONES EN TODA LA PÁGINA */
+.hearts-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.heart {
+  position: absolute;
+  transform: rotate(45deg);
+  opacity: 0;
+  animation-name: heartFloat;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+  border-radius: 0; /* para evitar borde extraño en rotación */
+}
+
+.heart::before,
+.heart::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  background: inherit; /* hereda color del div principal */
+}
+
+.heart::before {
+  width: 100%;
+  height: 100%;
+  top: -50%;
+}
+
+.heart::after {
+  width: 100%;
+  height: 100%;
+  left: -50%;
+}
+
+/* animación de subida con rotación opcional */
+@keyframes heartFloat {
+  0% {
+    transform: translateY(100vh) scale(0.5) rotate(0deg);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-150vh) scale(1) rotate(360deg);
+    opacity: 1;
+  }
+}
+
+.music-overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top:0;
+  left:0;
+  z-index: 1000;
+}
+
+.image-container {
+  position: relative;
+  cursor: pointer;
+}
+
+.thumbnail {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: transform 0.3s;
+}
+
+.thumbnail:hover {
+  transform: scale(1.05);
+}
+
+/* Ventana flotante */
+.preview-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10000; /* asegurarse de que esté arriba de todo */
+  pointer-events: auto; /* permitir que se muestre correctamente */
+}
+
+.preview-image {
+  max-width: 80vw;
+  max-height: 80vh;
+  border-radius: 12px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.5);
+  transition: transform 0.3s, opacity 0.3s;
+  transform: scale(0.9);
+  opacity: 0;
+  animation: previewFade 0.3s forwards;
+}
+
+@keyframes previewFade {
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+

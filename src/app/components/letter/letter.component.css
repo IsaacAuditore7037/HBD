@@ -1,48 +1,75 @@
-.background-screen{
+/* Fondo romántico tipo collage de rosas */
+  body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Georgia', serif;
+    background: #ffe0e9;
+    overflow-x: hidden;
+  }
 
-  /* width: max-content;
-  height: max-content; */
-  background-image: url(./../../../assets/img/roses.jpg);
-}
+  /* Crear varias rosas de distintos tamaños y opacidades como fondo decorativo */
+  .rose-bg {
+    margin: 0;
+    padding: 0;
+    font-family: 'Georgia', serif;
+    height: 100%;
+    /* Aquí colocamos tu imagen de fondo de rosas */
+    background-image: url('../../../assets/img/roses.jpg');
+    background-size: cover; /* la imagen cubre todo el contenedor */
+    background-position: center; /* centramos la imagen */
+    background-repeat: no-repeat;
+  }
 
-body {
-  font-family: 'Arial', sans-serif;
-  background-color: #f8f1e4;
-  margin: 0;
-  padding: 0;
-}
+  .rose-bg img {
+    position: absolute;
+    opacity: 0.15; /* transparencia para efecto delicado */
+  }
 
-.container {
-  max-width: 800px;
-  margin: 50px auto;
-  padding: 20px;
-  /* background-color: #fff; */
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  background-image: url(./../../../assets/img/background.jpg);
-}
+  /* Estilos de la carta */
+  .container {
+    max-width: 800px;
+    margin: 50px auto;
+    background: rgba(255, 240, 245, 0.95); /* Fondo semi-transparente */
+    padding: 50px 40px;
+    border-radius: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    border: 3px solid #ffb6c1;
+    position: relative;
+    font-size: 1.2em;
+    line-height: 1.6;
+    text-align: center;
+    background-image: url('../../../assets/img/background.jpg'); /* textura sutil de papel */
+    background-size: cover;
+  }
 
-h1 {
-  text-align: center;
-  color: black;
-  font-size: 36px;
-}
+  h1 {
+    font-family: 'Brush Script MT', cursive;
+    font-size: 3em;
+    margin-bottom: 20px;
+    color: #d6336c;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+  }
 
-p {
-  font-size: 18px;
-  line-height: 1.6;
-  color: black;
-}
+  p {
+    margin: 20px 0;
+  }
 
-.signature {
-  text-align: right;
-  font-size: 20px;
-  color: #333;
-  margin-top: 40px;
-}
+  .heart {
+    font-size: 2.5em;
+    color: #d6336c;
+    animation: beat 1s infinite;
+    display: inline-block;
+    margin-top: 20px;
+  }
 
-.heart {
-  text-align: center;
-  font-size: 50px;
-  color: #e74c3c;
-}
+  @keyframes beat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+  }
+
+  video {
+    margin-top: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    max-width: 100%;
+  }
