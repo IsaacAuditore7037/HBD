@@ -38,7 +38,7 @@
               "src/styles.css"
             ],
             "scripts": [],
-            "crossOrigin":"anonymous",
+            "crossOrigin":"anonymous"
           },
           "configurations": {
             "production": {
@@ -66,9 +66,6 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "move-safe: build",
-          },
           "configurations": {
             "production": {
               "buildTarget": "HBD:build:production"
