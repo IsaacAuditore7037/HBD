@@ -51,10 +51,10 @@ jobs:
         NEW_VERSION: ${{ steps.version.outputs.version }}
       run: |
         echo "Subir Imagen a DigitalOcean Registry"
-        docker tag hbd:latest registry.digitalocean.com/isaacauditore-registry/hbd:latest
-        docker tag hbd:$NEW_VERSION registry.digitalocean.com/isaacauditore-registry/hbd:$NEW_VERSION
-        docker push registry.digitalocean.com/isaacauditore-registry/hbd:$NEW_VERSION
-        docker push registry.digitalocean.com/isaacauditore-registry/hbd:latest
+        docker tag hbd:latest registry.digitalocean.com/hbd:latest
+        docker tag hbd:$NEW_VERSION registry.digitalocean.com/hbd:$NEW_VERSION
+        docker push registry.digitalocean.com/hbd:$NEW_VERSION
+        docker push registry.digitalocean.com/hbd:latest
         echo "Imagen Subida"
 
     - name: Docker login
