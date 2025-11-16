@@ -1,20 +1,22 @@
-# Base
-FROM node:20-alpine
+# Build stage
+FROM node:20-alpine AS build
 
-# Directorio de trabajo
 WORKDIR /app
 
-# Copiar package.json y package-lock.json
 COPY package*.json ./
-
-# Instalar dependencias
 RUN npm install
 
-# Copiar todo el proyecto
 COPY . .
+RUN npm run build --prod
 
-# Exponer puerto 80 para la app Angular
+# Production stage
+FROM nginx:alpine
+
+COPY --from=build /app/dist/hbd /usr/share/nginx/html
+
+# Copiar configuración personalizada de Nginx si la tienes
+# COPY nginx.conf /etc/nginx/conf.d/default.conf
+
 EXPOSE 80
 
-# Comando para iniciar la app
-CMD ["npm", "start"]
+CMD ["nginx", "-g", "daemon off;"]
