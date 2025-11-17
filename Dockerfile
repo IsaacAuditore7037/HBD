@@ -1,4 +1,4 @@
-# Build stage
+# Etapa de build (Node)
 FROM node:20-alpine AS build
 
 WORKDIR /app
@@ -9,14 +9,17 @@ RUN npm install
 COPY . .
 RUN npm run build --prod
 
-# Production stage
+# Etapa de producción (Nginx)
 FROM nginx:alpine
 
-COPY --from=build /app/dist/hbd /usr/share/nginx/html
+# Copiar configuración de Nginx
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Copiar configuración personalizada de Nginx si la tienes
-# COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Copiar los archivos generados por el build
+COPY --from=build /app/dist/hbd/browser /usr/share/nginx/html
 
+# Exponer puerto
 EXPOSE 80
 
+# Iniciar Nginx
 CMD ["nginx", "-g", "daemon off;"]
